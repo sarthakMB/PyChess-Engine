@@ -1,7 +1,15 @@
-def a():
-    b()
+class Test:
 
-def b():
-    print("bbbbbbbbbbbbbbbbbbb")
+    def func(self):
+        var = []
+        var.append(1)
+        print(var)
 
-a()
+test = Test()
+test.func()
+test.func()
+test.func()
+test.func()
+test.func()
+test.func()
+test.func()
