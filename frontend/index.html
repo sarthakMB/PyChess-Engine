@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyChess Engine</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- chessboard.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                PyChess Engine
+            </h1>
+            <p class="text-slate-400 text-lg">A simple but fast chess engine</p>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+            <!-- Left Panel - Game Info -->
+            <aside class="lg:col-span-1 space-y-6">
+                <!-- Captured Pieces - Black -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">Black Captured</h2>
+                    <div id="black-captured" class="flex flex-wrap gap-2 min-h-[60px]">
+                        <!-- Captured black pieces will appear here -->
+                    </div>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">Game Controls</h2>
+                    <div class="space-y-3">
+                        <button id="new-game" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+                            New Game
+                        </button>
+                        <button id="flip-board" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200">
+                            Flip Board
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Status -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">Game Status</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400">Turn:</span>
+                            <span id="current-turn" class="font-semibold text-lg">White</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400">Status:</span>
+                            <span id="game-status" class="font-semibold text-green-400">In Progress</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400">Moves:</span>
+                            <span id="move-count" class="font-semibold">0</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Panel - Chessboard -->
+            <main class="lg:col-span-1">
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <div id="board" class="mx-auto"></div>
+                    <!-- Move feedback -->
+                    <div id="move-feedback" class="mt-4 p-3 rounded-lg text-center hidden">
+                        <p id="feedback-text"></p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Panel - Move History -->
+            <aside class="lg:col-span-1 space-y-6">
+                <!-- Captured Pieces - White -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">White Captured</h2>
+                    <div id="white-captured" class="flex flex-wrap gap-2 min-h-[60px]">
+                        <!-- Captured white pieces will appear here -->
+                    </div>
+                </div>
+
+                <!-- Move History -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">Move History</h2>
+                    <div id="move-history" class="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
+                        <p class="text-slate-500 text-sm italic">No moves yet</p>
+                    </div>
+                </div>
+
+                <!-- FEN Position -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50">
+                    <h2 class="text-xl font-semibold mb-4 text-slate-300">FEN Position</h2>
+                    <div class="bg-slate-900/50 rounded-lg p-3">
+                        <code id="fen-string" class="text-xs text-slate-400 break-all">
+                            rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+                        </code>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-slate-500 text-sm">
+            <p>PyChess Engine - Built with Python, chessboard.js, and Tailwind CSS</p>
+        </footer>
+    </div>
+
+    <!-- jQuery (required by chessboard.js) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- chessboard.js -->
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/board.js"></script>
+</body>
+</html>
