@@ -1,0 +1,214 @@
+/* Custom styles for PyChess Engine */
+
+/* Custom scrollbar for move history */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(71, 85, 105, 0.8);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.9);
+}
+
+/* Chessboard styling enhancements */
+#board {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Add subtle shadow to chessboard */
+.chessboard-63f37 {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Piece animation */
+.piece-417db {
+    transition: transform 0.2s ease;
+}
+
+.piece-417db:hover {
+    transform: scale(1.05);
+    cursor: grab;
+}
+
+.piece-417db:active {
+    cursor: grabbing;
+}
+
+/* Highlight squares */
+.highlight-square {
+    box-shadow: inset 0 0 0 3px rgba(34, 197, 94, 0.6);
+    border-radius: 4px;
+}
+
+.highlight-move {
+    background-color: rgba(34, 197, 94, 0.2) !important;
+}
+
+.highlight-capture {
+    background-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Move feedback animations */
+#move-feedback.success {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2));
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #86efac;
+}
+
+#move-feedback.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}
+
+#move-feedback.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2));
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #93c5fd;
+}
+
+/* Move history styling */
+.move-entry {
+    padding: 8px 12px;
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.move-entry:hover {
+    background: rgba(51, 65, 85, 0.6);
+    border-left-color: rgba(96, 165, 250, 0.6);
+}
+
+.move-entry.white-move {
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.move-entry.black-move {
+    border-left-color: rgba(100, 116, 139, 0.5);
+}
+
+/* Captured pieces styling */
+.captured-piece {
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+    filter: grayscale(30%);
+}
+
+/* Button hover effects */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Status indicators */
+.status-check {
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% {
+        color: #ef4444;
+        opacity: 1;
+    }
+    50% {
+        color: #dc2626;
+        opacity: 0.8;
+    }
+}
+
+.status-checkmate {
+    color: #dc2626;
+    font-weight: bold;
+    animation: flash 1s infinite;
+}
+
+@keyframes flash {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0.5;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    #board {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    #board {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 640px) {
+    #board {
+        max-width: 100%;
+    }
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid rgba(96, 165, 250, 0.3);
+    border-top-color: #60a5fa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
